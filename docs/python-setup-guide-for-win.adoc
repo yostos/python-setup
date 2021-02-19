@@ -1,0 +1,72 @@
+
+:encoding: utf-8
+:lang: ja
+:author: Toshiyuki Yoshida
+:doctitle: Python環境設定ガイド for Windows ユーザー
+:revnumber: 0.1
+:revdate: 2019/08/15
+:doctype: book
+:toc: left
+:chapter-label:
+:imagesdir: ./_images
+:source-highlighter: pygments
+:example-caption: 例
+:table-caption: 表
+:figure-caption: 図
+:toc-title: 目次
+
+= {doctitle}
+
+[preface]
+== このドキュメントについて
+
+* このドキュメントは、本アセットを使用するためにMacユーザーがPython環境を設定するための参考情報です。Python環境自体の設定について保証するものではありません。
+* Windows 10 を前提として記述されています。
+
+:sectnums:
+== WindowsにおけるPython環境の設定について
+
+[.lead]
+Windowsでは標準でPythonが導入されていませんので、
+本アセットの稼働のために必要なPython 3の環境を
+整備する必要があります。
+
+
+
+=== Pythonの導入
+
+Pythonの公式ページの link:https://www.python.org/downloads/windows/[ダウンロードページ]
+からPython3をダウンロードします。
+
+ダウンロードページの Downloadタブにカーソルを合わせると、ダウンロードのダイアログ
+が表示されます。ダイアログ上にダウンロードためのボタンがあるのでそのボタンを押
+すとダウンロードが開始されます。
+
+.Pythonダウンロードページ
+[#download-page]
+[caption="図 1:"]
+image::win1.png[Pythonダウンロードページ]
+
+完了したら、ダウンロードしたファイルを実行してください。
+
+以下のようなダイアログが表示されます。 "Add Python 3.x to PATH"にチェックを入れて 
+"Install Now" をクリックします。
+
+
+.Pythonインストーラー
+[#download-page]
+[caption="図 2:"]
+image::win2.png[Pythonインストーラー]
+
+インストーラーが完了したら、一度Windowsを再起動させてください。
+
+これでPythonの実行環境が完成しました。
+
+PowerShellを起動して、Pythonが正常にインストールされていることを確認してください。
+
+[source, sh]
+.Pythonの確認
+----
+PS C:\Users\hogehoge> python --version
+Python 3.7.4
+----

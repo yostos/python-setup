@@ -1,0 +1,147 @@
+:encoding: utf-8
+:lang: ja
+:author: Toshiyuki Yoshida
+:doctitle: Python環境設定ガイド for Mac ユーザー
+:revnumber: 0.1
+:revdate: 2019/08/15
+:doctype: book
+:toc: left
+:chapter-label:
+:imagesdir: ./_images
+:source-highlighter: pygments
+:example-caption: 例
+:table-caption: 表
+:figure-caption: 図
+:toc-title: 目次
+
+= {doctitle}
+
+[preface]
+== このドキュメントについて
+
+* このドキュメントは、本アセットを使用するためにMacユーザーがPython環境を設定するための参考情報です。Python環境自体の設定について保証するものではありません。
+* macOS 10.14 (Mojave)を前提として記述されています。
+
+:sectnums:
+== MacにおけるPython環境の設定について
+
+[.lead]
+macOSでは標準でPython2の環境があらかじめ導入されていますが、本アセットでは
+Python 3の環境が必要なため新たに環境を整備する必要があります。
+
+以下の手順に従って導入ください。
+
+=== Xcodeのインストール
+
+XcodeはApple社標準の開発ツールです。ターミナルで使用するUnix関連コマンドの前提となっています。
+
+Xcodeおよび、Xcode Command Line Toolsの導入を以下の手順にて行います。
+
+まず link:https://itunes.apple.com/jp/app/xcode/id497799835[AppStoreのXcodeのページ] からXcodeをインストールします。かなり時間が掛かるので、時間があるときにやりましょう。
+
+次にXcode Command Line toolsをインストールを行います。
+
+[source, sh]
+.Xcode Command Line toolsのインストール手順
+----
+$ xcode-select --install
+xcode-select: error: command line tools are already installed, use "Software Update" to install updates
+        (既に導入されているとエラーがでる場合があります。
+            make コマンドと叩いてみて動作を確認します。）
+$ make
+Agreeing to the Xcode/iOS license requires admin privileges, please run “sudo xcodebuild -license” and then retry this command.
+        (インストールされているだけでEULAには同意していないため使用できない場合があります。)
+$ xcode-select --license (ライセンス規定を表示し同意します。)
+----
+
+=== Homebrew のインストール
+
+Homebrew は macOS上でUnix系アプリの管理を行うパッケージ管理ツールです。
+macOSでUnix系ツールを使う際には必須となります。
+
+導入するには、 link:http://brew.sh/index_ja.html[Homebrewの公式ページ] を開いて
+掲載してあるスクリプトをコピーしてターミナルに貼り付けて実行するだけです。
+
+自動的にダウンロードされインストールされます。
+
+=== pyenvのインストール
+
+Pythonは多くのバージョンがあり、Python2系 / Python3系を切り替えることも多いため、
+直接Pythonをインストールするのではなく、pyenvを通じて環境を切り替えられるよう
+インストールするのがお勧めです。
+
+pyenvのインストール方法は以下の通りです。
+
+[[pyenv-install]]
+[source, sh]
+.Pyenvのインストール手順
+----
+$ brew install pyenv
+----
+
+以下の内容を、 '~/.bash_profile'
+に追記します。
+
+[source, sh]
+..bash_profileへの設定例
+----
+# Python
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PATH="$HOME/.local/bin:$PATH"
+----
+
+追記後に以下のコマンドを実行して、設定の有効化とpyenvが
+正常にインストールされたことを確認してください。
+
+
+[source, sh]
+.Pyenvの導入の確認
+----
+$ source ~/.bash_profile
+$ pyenv --version
+pyenv 1.2.8
+----
+
+=== Pythonのインストール
+
+Pythonは pyenvによりインストールします。 pyenv install --list コマンドにより
+現在インストール可能なPythonのバージョンを確認できます。しかし、そのまま
+リストすると大量なバージョンのリストが表示されるため、以下のコマンドにより
+現時点で有効な Python 3.7 以降のバージョンのみ表示させます。
+
+[source ,sh]
+.Pyenvでインストール可能なPythonの確認
+----
+$ pyenv install --list | egrep '^[ ]+[3]\.[7-9]\.[0-9\.]+$'
+----
+
+Python 3.7の最新バージョンを指定して、以下のコマンドでPythonをインストールします。
+以下の例では 最新バージョンを調べ 3.7.1 を指定してPythonをインストールし、導入
+したPythonのバージョンをシステム全体で使用するよう設定して、最後に確認を行って
+います。
+
+[source ,sh]
+.Pythonのインストール手順
+----
+$ pyenv install --list | egrep '^[ ]+[3]\.[7-9]\.[0-9\.]+$'
+3.7.0
+3.7.1
+$ pyenv install 3.7.1
+ython-build: use openssl from homebrew
+python-build: use readline from homebrew
+Downloading Python-3.7.1.tar.xz...
+(中略)
+$ pyenv global 3.7.1
+$ pyenv versions
+  system
+  2.7.16
+* 3.7.1 (set by /Users/hogehoge/.pyenv/version)
+$ python --version
+python 3.7.1
+----
+
+これでPythonの実行環境が完成しました。
+
