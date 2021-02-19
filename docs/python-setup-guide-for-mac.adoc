@@ -20,7 +20,7 @@
 == このドキュメントについて
 
 * このドキュメントは、本アセットを使用するためにMacユーザーがPython環境を設定するための参考情報です。Python環境自体の設定について保証するものではありません。
-* macOS 10.14 (Mojave)を前提として記述されています。
+* macOS 11.2 を前提として記述されています。 macOSが古い場合は、zshrの部分をbash_profileと読み替えてください。
 
 :sectnums:
 == MacにおけるPython環境の設定について
@@ -70,6 +70,8 @@ Pythonは多くのバージョンがあり、Python2系 / Python3系を切り替
 直接Pythonをインストールするのではなく、pyenvを通じて環境を切り替えられるよう
 インストールするのがお勧めです。
 
+
+
 pyenvのインストール方法は以下の通りです。
 
 [[pyenv-install]]
@@ -79,11 +81,11 @@ pyenvのインストール方法は以下の通りです。
 $ brew install pyenv
 ----
 
-以下の内容を、 '~/.bash_profile'
+以下の内容を、 '~/.zshrc'
 に追記します。
 
 [source, sh]
-..bash_profileへの設定例
+..zshrcへの設定例
 ----
 # Python
 export PYENV_ROOT="$HOME/.pyenv"
@@ -100,7 +102,7 @@ export PATH="$HOME/.local/bin:$PATH"
 [source, sh]
 .Pyenvの導入の確認
 ----
-$ source ~/.bash_profile
+$ source ~/.zshrc
 $ pyenv --version
 pyenv 1.2.8
 ----
