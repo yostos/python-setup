@@ -17,27 +17,28 @@ Python関連
 .. code-block:: sh
 
    $ cd hogehoge                     <- gitで取得したルートディレクトリ
-   $ virtualenv local_env            <- Pythonの仮想環境を作成します
-                                     <- リポジトリを汚さないようこの名前にしてください。
+   $ pipenv --python 3.9.5           <- Pythonの仮想環境を作成します
                                      <- クリーンなPython環境が作成されます。
-   $ source local_env/bin/activate   <- 仮想環境に入ります。
-   (local_env)> pip install -r ./requirements/dev.txt 
-                                     <- 必要なパッケージを導入します。
+   $ pipenv shell                    <- 仮想環境に入ります。
+   (hogehoge)$  
                                      <- 必ずプロンプトで仮想環境に入っていることを
                                      <- 確認してください。
    ( テストを実施 )
 
-   (local_env)> deactivate           <- 仮想環境を抜けます。
+   (hogehoge)$ exit                  <- 仮想環境を抜けます。
    $                                 <- 仮想環境から通常の環境に
 
-- 前提パッケージを追加した場合は、以下のコマンドでrequirementsフォルダ
-  配下のファイルをを更新してください。
-  コマンド実行時に必ず仮想環境である事を確認すること。
+- 前提パッケージを追加したい場合は、pipコマンドでなく、pipenvコマンドで
+  パッケージの導入を行ってください。導入したパッケージ名がPipfileに記録される
+  ため、別の環境ですぐに環境の再構築ができます。
  
 .. code-block:: sh
 
-   (local_env)> rm temp.txt
-   (local_env)> pip freeze >temp.txt
+   (hogehoge)$ pipenv install hogehoge-package ← パッケージが導入され
+                                                  Pipfileに記録されます。
+   # 別の環境に再構築する場合は以下のコマンドで必要なパッケージが一括インストール
+   # できます。
+   (hogehoge)$ pipenv install
 
 
 上記のコマンド実施後、temp.txtの内容を確認して requirementsフォルダ配下の
@@ -84,7 +85,7 @@ HTML/PDFの生成には `asciidoctor` および `asciidoctor-pdf` を使用し�
 .. code-block:: sh
 
    # PDF生成
-   $ asciidoctor-pdf -r asciidoctor-pdf-cjk-kai_gen_gothic input.adoc -a pdf-style=KaiGenGothicJP-theme.yml
+   $ asciidoctor-pdf  input.adoc -a pdf-fontsdir=./fonts -a pdf-style=KaiGenGothicJP-theme.yml
    # HTML生成 
    $ asciidoctor -r asciidoctor-pdf-cjk input.adoc 
 

@@ -64,21 +64,23 @@ macOSでUnix系ツールを使う際には必須となります。
 
 自動的にダウンロードされインストールされます。
 
-=== pyenvのインストール
+=== asdfのインストール
 
 Pythonは多くのバージョンがあり、Python2系 / Python3系を切り替えることも多いため、
-直接Pythonをインストールするのではなく、pyenvを通じて環境を切り替えられるよう
+直接Pythonをインストールするのではなく、asdfを通じて環境を切り替えられるよう
 インストールするのがお勧めです。
 
+asdfはPythonだけでなく多くの言語のバージョンを管理することが可能なツールです。
 
 
-pyenvのインストール方法は以下の通りです。
 
-[[pyenv-install]]
+asdfのインストール方法は以下の通りです。
+
+[[asdf-install]]
 [source, sh]
-.Pyenvのインストール手順
+.asdfのインストール手順
 ----
-$ brew install pyenv
+$ brew install asdf
 ----
 
 以下の内容を、 '~/.zshrc'
@@ -87,62 +89,57 @@ $ brew install pyenv
 [source, sh]
 ..zshrcへの設定例
 ----
-# Python
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-export PATH="$HOME/.local/bin:$PATH"
+# asdf
+./opt/homebrew/opt/asdf/asdf.sh
 ----
 
-追記後に以下のコマンドを実行して、設定の有効化とpyenvが
+追記後に以下のコマンドを実行して、設定の有効化とasdfが
 正常にインストールされたことを確認してください。
 
 
 [source, sh]
-.Pyenvの導入の確認
+.asdfの導入の確認
 ----
 $ source ~/.zshrc
-$ pyenv --version
-pyenv 1.2.8
+$ asdf --version
+v0.8.1
 ----
 
 === Pythonのインストール
 
-Pythonは pyenvによりインストールします。 pyenv install --list コマンドにより
+Pythonは asdfによりインストールします。
+
+asdfにPythonのプラグインをインストールし、
+asdf list-all python コマンドにより
 現在インストール可能なPythonのバージョンを確認できます。しかし、そのまま
 リストすると大量なバージョンのリストが表示されるため、以下のコマンドにより
 現時点で有効な Python 3.7 以降のバージョンのみ表示させます。
 
 [source ,sh]
-.Pyenvでインストール可能なPythonの確認
+.asdfでPythonプラグインのインストールとインストール可能なPythonの確認
 ----
-$ pyenv install --list | egrep '^[ ]+[3]\.[7-9]\.[0-9\.]+$'
+$ asdf plugin add python
+$ asdf list-all python  | egrep '^[3]\.[7-9]\.[0-9\.]+$'
+3.7.0
+〜
+3.9.3
+3.9.4
+3.9.5
 ----
 
 Python 3.7の最新バージョンを指定して、以下のコマンドでPythonをインストールします。
-以下の例では 最新バージョンを調べ 3.7.1 を指定してPythonをインストールし、導入
+以下の例では 最新バージョンを調べ 3.9.5 を指定してPythonをインストールし、導入
 したPythonのバージョンをシステム全体で使用するよう設定して、最後に確認を行って
 います。
 
 [source ,sh]
 .Pythonのインストール手順
 ----
-$ pyenv install --list | egrep '^[ ]+[3]\.[7-9]\.[0-9\.]+$'
-3.7.0
-3.7.1
-$ pyenv install 3.7.1
-ython-build: use openssl from homebrew
-python-build: use readline from homebrew
-Downloading Python-3.7.1.tar.xz...
-(中略)
-$ pyenv global 3.7.1
-$ pyenv versions
-  system
-  2.7.16
-* 3.7.1 (set by /Users/hogehoge/.pyenv/version)
+$ asdf install python 3.9.5
+$ asdf global python 3.9.5
+$ asdf reshim python
 $ python --version
-python 3.7.1
+python 3.9.5
 ----
 
 これでPythonの実行環境が完成しました。
