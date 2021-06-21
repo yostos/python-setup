@@ -115,4 +115,8 @@ HTML/PDFの生成には `asciidoctor` および `asciidoctor-pdf` を使用し�
 .. [#f1] pycodestyle + pyflakes + mccabe(複雑度チェッカー) 的なもの。 
    pip install flake8でインストール
 
+TODO
+=======
+
+- Windows版ガイドを修正する
 
